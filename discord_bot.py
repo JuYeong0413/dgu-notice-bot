@@ -26,10 +26,14 @@ async def react_test(ctx):
     """
 
     # Get general notice
-    general_message = general.run()
+    # general_message = general.run()
+    # academic_message = academic.run()
+    scholarship_message = scholarship.run()
 
     # Send message to channel
-    await ctx.channel.send(general_message)
+    # await ctx.channel.send(general_message)
+    # await ctx.channel.send(academic_message)
+    await ctx.channel.send(scholarship_message)
     return None
 
 client.run(secrets.get_token())
