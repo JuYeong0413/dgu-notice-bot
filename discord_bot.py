@@ -19,12 +19,6 @@ async def on_ready():
 
 @client.command(name="test")
 async def react_test(ctx):
-    """
-    This command runs when user calls 'test' after the prefix.
-    :param ctx: discord.context
-    :return: None
-    """
-
     # Get notice
     general_message = general.run()
     academic_message = academic.run()
@@ -38,6 +32,20 @@ async def react_test(ctx):
     ch_scholarship = client.get_channel(797476280836161546)
     await ch_scholarship.send(scholarship_message)
     
+    await client.close()
+    print(client.user.name, 'successfully logged out.')
+
+    return None
+
+
+@client.event
+async def on_command_error(ctx, error):
+    embed = discord.Embed(title=":rotating_light:", description="오류가 발생했습니다.", color=0xFF0000)
+    embed.add_field(name="로그", value=f"```{error}```")
+    ch = client.get_channel(835550287305244702)
+    await ch.send(embed=embed)
+    await ch.send("<@&{}>".format(str(797475663547203604)))
+
     await client.close()
     print(client.user.name, 'successfully logged out.')
 
