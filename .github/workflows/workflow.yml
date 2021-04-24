@@ -1,0 +1,20 @@
+name: run-discord-bot
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # runs every five minutes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content to github runner
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.2' # install the python version needed
+      - name: execute py script
+        env:
+          discord_token: ${{ secrets.DISCORD_TOKEN }}
+        run: python discord_bot.py
