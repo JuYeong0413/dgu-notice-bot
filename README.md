@@ -1,7 +1,7 @@
 # dgu-notice-bot
 :elephant: 동국대학교 일반/학사/장학공지 디스코드 봇 ([채널 입장하기](https://discord.gg/XUhKUdA7Yx))  
   
-동국대학교 제53대 경영대학 학생회 [동경]이 코로나19 사태로 인해 학교에 대한 정보를 얻기가 쉽지 않은 상황을 고려해
+동국대학교 제53대 경영대학 학생회 [동경]에서 코로나19 사태로 인해 학교에 대한 정보를 얻기가 쉽지 않은 상황을 고려해
 학사/장학 관련 정보 전달에 적극적으로 임하고자 개설한 [카카오톡 오픈채팅방](https://open.kakao.com/o/gxsRLaOc)
 으로부터 아이디어를 얻어 제작한 디스코드 봇.  
   
@@ -30,7 +30,11 @@ $ git clone https://github.com/JuYeong0413/dgu-notice-bot.git
 ```terminal
 $ pip3 install -r requirements.txt
 ```
-4. Run `discord_bot.py` file.
+4. Install `discord.py`
+```terminal
+$ python3 -m pip install -U discord.py
+```
+5. Run `discord_bot.py` file.
 ```terminal
 $ python3 discord_bot.py
 ```
