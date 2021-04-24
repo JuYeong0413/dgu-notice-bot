@@ -25,15 +25,18 @@ async def react_test(ctx):
     :return: None
     """
 
-    # Get general notice
-    # general_message = general.run()
-    # academic_message = academic.run()
+    # Get notice
+    general_message = general.run()
+    academic_message = academic.run()
     scholarship_message = scholarship.run()
 
     # Send message to channel
-    # await ctx.channel.send(general_message)
-    # await ctx.channel.send(academic_message)
-    await ctx.channel.send(scholarship_message)
+    ch_general = client.get_channel(797475056271622239)
+    await ch_general.send(general_message)
+    ch_academic = client.get_channel(797476259777085440)
+    await ch_academic.send(academic_message)
+    ch_scholarship = client.get_channel(797476280836161546)
+    await ch_scholarship.send(scholarship_message)
     
     await client.close()
     print(client.user.name, 'successfully logged out.')
