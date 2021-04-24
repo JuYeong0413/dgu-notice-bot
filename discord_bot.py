@@ -7,7 +7,7 @@ import crawling_general as general
 import crawling_academic as academic
 import crawling_scholarship as scholarship
 
-prefix = "!"
+prefix = "!?"
 client = commands.Bot(command_prefix=prefix)
 
 @client.event
