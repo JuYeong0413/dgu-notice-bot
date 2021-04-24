@@ -1,0 +1,12 @@
+beautifulsoup4==4.9.3
+certifi==2020.12.5
+chardet==4.0.0
+GDAL==3.2.1
+idna==2.10
+meson==0.57.1
+numpy==1.20.2
+protobuf==3.15.5
+requests==2.25.1
+six==1.15.0
+soupsieve==2.2.1
+urllib3==1.26.4

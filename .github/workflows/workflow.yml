@@ -16,9 +16,8 @@ jobs:
           python-version: '3.8.2' # install the python version needed
       - name: install packages
         run: |
+          pip3 install -r requirements.txt
           python3 -m pip install -U discord.py
-          pip3 install requests
-          pip3 install beautifulsoup4
       - name: execute py script
         env:
           discord_token: ${{ secrets.DISCORD_TOKEN }}
