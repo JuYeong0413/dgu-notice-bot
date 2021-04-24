@@ -63,7 +63,7 @@ def run():
             else:
                 notices = "{}\n{}\n".format(notices, v)
 
-    result = "{} 일반공지입니다.\n{}".format(today_date, notices)
+    result = ":bulb: {} 일반공지입니다.\n{}".format(today_date, notices)
 
     return result
 
