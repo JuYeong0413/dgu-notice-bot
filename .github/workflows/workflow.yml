@@ -17,6 +17,7 @@ jobs:
       - name: install packages
         run: |
           pip3 install -r requirements.txt
+          pip3 install pytz
           python3 -m pip install -U discord.py
       - name: execute py script
         env:
