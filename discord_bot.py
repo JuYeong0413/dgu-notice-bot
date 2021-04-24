@@ -14,7 +14,7 @@ client = commands.Bot(command_prefix=prefix)
 async def on_ready():
     print(client.user.name, 'has connected to Discord!')
     await client.change_presence(status=discord.Status.online, activity=None)
-    print("Ready")
+    print('Ready')
 
 
 @client.command(name="test")
@@ -34,6 +34,10 @@ async def react_test(ctx):
     # await ctx.channel.send(general_message)
     # await ctx.channel.send(academic_message)
     await ctx.channel.send(scholarship_message)
+    
+    await client.close()
+    print(client.user.name, 'successfully logged out.')
+
     return None
 
 client.run(secrets.get_token())
