@@ -19,6 +19,10 @@ jobs:
           pip3 install -r requirements.txt
           pip3 install pytz
           python3 -m pip install -U discord.py
+      - name: test env vars for python
+        run: python -c 'import os;print(os.environ)'
+        env:
+          discord_token: ${{ secrets.DISCORD_TOKEN }}
       - name: execute py script
         env:
           discord_token: ${{ secrets.DISCORD_TOKEN }}
