@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 from pytz import timezone
 import re
 
-url = 'http://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
-# today = datetime.now(timezone('Asia/Seoul'))
-today = (datetime.today() - timedelta(days=2)) # For test
+url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
+today = datetime.now(timezone('Asia/Seoul'))
+# today = (datetime.today() - timedelta(days=2)) # For test
 
 def get_url_list():
     html = requests.get(url)

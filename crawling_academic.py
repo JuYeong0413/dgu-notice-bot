@@ -5,8 +5,8 @@ from pytz import timezone
 import re
 
 url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3638&id=kr_010801000000' # 학사공지
-# today = datetime.now(timezone('Asia/Seoul'))
-today = (datetime.today() - timedelta(days=3)) # For test
+today = datetime.now(timezone('Asia/Seoul'))
+# today = (datetime.today() - timedelta(days=3)) # For test
 
 def get_url_list():
     html = requests.get(url)
