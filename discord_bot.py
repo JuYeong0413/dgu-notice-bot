@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-from github import Github
-import config
+import os
 
 # External File
 import load_secrets as secrets
@@ -10,7 +9,8 @@ import crawling_academic as academic
 import crawling_scholarship as scholarship
 
 
-token = Github(config.DISCORD_TOKEN)
+# Get discord token
+token = os.environ.get('discord_token')
 
 prefix = "!"
 client = commands.Bot(command_prefix=prefix)
