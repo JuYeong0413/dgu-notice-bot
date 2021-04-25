@@ -1,29 +1,33 @@
 name: run-discord-bot
 
 on:
-  schedule:
-    - cron: '*/5 * * * *' # runs every five minutes
+  # Only Test
+  push:
+   branches:
+    - main
+  # schedule:
+  #   - cron: '0 9 * * 1-5'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo content
+      - name: Checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner
-      - name: setup python
+      - name: Setting up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.8.2' # install the python version needed
-      - name: install packages
+      - name: Install dependencies
         run: |
           pip3 install -r requirements.txt
           pip3 install pytz
           python3 -m pip install -U discord.py
-      - name: test env vars for python
+      - name: Test env vars
         run: python -c 'import os;print(os.environ)'
         env:
           discord_token: ${{ secrets.DISCORD_TOKEN }}
-      - name: execute py script
+      - name: Execute py script
         env:
           discord_token: ${{ secrets.DISCORD_TOKEN }}
         run: python3 discord_bot.py

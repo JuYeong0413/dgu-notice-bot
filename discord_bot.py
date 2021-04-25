@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
-import os
+from github import Github
+import config
 
 # External File
 import load_secrets as secrets
@@ -8,11 +9,12 @@ import crawling_general as general
 import crawling_academic as academic
 import crawling_scholarship as scholarship
 
-# Get discord token
-token = os.environ.get('discord_token')
 
-prefix = "!?"
+token = Github(config.DISCORD_TOKEN)
+
+prefix = "!"
 client = commands.Bot(command_prefix=prefix)
+# client = discord.Client()
 
 @client.event
 async def on_ready():
@@ -20,9 +22,6 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=None)
     print('Ready')
 
-
-@client.command(name="test")
-async def react_test(ctx):
     # Get notice
     general_message = general.run()
     academic_message = academic.run()
@@ -35,9 +34,28 @@ async def react_test(ctx):
     await ch_academic.send(academic_message)
     ch_scholarship = client.get_channel(797476280836161546)
     await ch_scholarship.send(scholarship_message)
-    
+
+    print(client.user.name, 'successfully sent notices.')
     await client.close()
     print(client.user.name, 'successfully logged out.')
+
+
+@client.command(name="test")
+async def react_test(ctx):
+    # Get notice
+    general_message = general.run()
+    academic_message = academic.run()
+    scholarship_message = scholarship.run()
+
+    # Send message to channel
+    ch_general = client.get_channel(835518591830851584)
+    await ch_general.send(general_message)
+    ch_academic = client.get_channel(835518591830851584)
+    await ch_academic.send(academic_message)
+    ch_scholarship = client.get_channel(835518591830851584)
+    await ch_scholarship.send(scholarship_message)
+    
+    print(client.user.name, 'successfully sent notices to test channel.')
 
     return None
 
@@ -55,4 +73,5 @@ async def on_command_error(ctx, error):
 
     return None
 
+# client.run(secrets.get_token())
 client.run(token)
