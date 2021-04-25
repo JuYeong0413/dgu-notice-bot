@@ -4,10 +4,18 @@ import os
 
 # External File
 import load_secrets as secrets
-import crawling_general as general
-import crawling_academic as academic
-import crawling_scholarship as scholarship
+import crawling
 
+
+# notice links
+general_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
+academic_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3638&id=kr_010801000000' # 학사공지
+scholarship_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3662&id=kr_010804000000' # 장학공지
+
+# notice types
+type_general = "일반"
+type_academic = "학사"
+type_scholarship = "장학"
 
 # Get discord token
 token = os.environ.get('discord_token')
@@ -23,9 +31,9 @@ async def on_ready():
     print('Ready')
 
     # Get notice
-    general_message = general.run()
-    academic_message = academic.run()
-    scholarship_message = scholarship.run()
+    general_message = crawling.run(general_url, type_general)
+    academic_message = crawling.run(academic_url, type_academic)
+    scholarship_message = crawling.run(scholarship_url, type_scholarship)
 
     # Send message to channel
     ch_general = client.get_channel(797475056271622239)
@@ -43,9 +51,9 @@ async def on_ready():
 @client.command(name="test")
 async def react_test(ctx):
     # Get notice
-    general_message = general.run()
-    academic_message = academic.run()
-    scholarship_message = scholarship.run()
+    general_message = crawling.run(general_url, type_general)
+    academic_message = crawling.run(academic_url, type_academic)
+    scholarship_message = crawling.run(scholarship_url, type_scholarship)
 
     # Send message to channel
     ch_general = client.get_channel(835518591830851584)

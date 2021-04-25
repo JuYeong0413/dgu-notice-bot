@@ -4,24 +4,21 @@ from datetime import datetime, timedelta
 from pytz import timezone
 import re
 
-url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3662&id=kr_010804000000' # 장학공지
-today = datetime.now(timezone('Asia/Seoul'))
-# today = (datetime.today() - timedelta(days=3)) # For test
 
-def get_url_list():
+def get_url_list(url):
     html = requests.get(url)
     soup = BeautifulSoup(html.text, 'html.parser')
     table = soup.find(id="board_list")
     rows = table.find_all('tr')[1:]
 
     # 상단 고정 공지 제외
-    today_date = today.strftime('%Y-%m-%d')
+    today = datetime.now(timezone('Asia/Seoul')).strftime('%Y-%m-%d')
 
     start = 0
     end = 0
     for i in rows:
         if i.td.img is None:
-            if today_date == i.select('td')[3].text.strip():
+            if today == i.select('td')[3].text.strip():
                 end += 1
         else:
             start += 1
@@ -49,10 +46,10 @@ def get_notice_list(urls):
     return notice_list
 
 
-def run():
-    today_date = today.strftime('%Y년 %m월 %d일')
+def run(url, notice_type):
+    today = datetime.now(timezone('Asia/Seoul')).strftime('%Y년 %m월 %d일')
 
-    urls = get_url_list()
+    urls = get_url_list(url)
     notice_list = get_notice_list(urls)
 
     notices = ""
@@ -63,9 +60,13 @@ def run():
             else:
                 notices = "{}\n{}\n".format(notices, v)
 
-    result = ":bulb: {} 장학공지입니다.\n{}".format(today_date, notices)
+    result = ":bulb: {} {}공지입니다.\n{}".format(today, notice_type, notices)
 
     return result
 
 if __name__ == "__main__":
-    run()
+    # test
+    url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
+    notice_type = "일반"
+    
+    print(run(url, notice_type))
