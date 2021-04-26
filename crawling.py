@@ -13,6 +13,7 @@ def get_url_list(url):
 
     # 상단 고정 공지 제외
     today = datetime.now(timezone('Asia/Seoul')).strftime('%Y-%m-%d')
+    # today = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d') # For test
 
     start = 0
     end = 0
@@ -48,6 +49,7 @@ def get_notice_list(urls):
 
 def run(url, notice_type):
     today = datetime.now(timezone('Asia/Seoul')).strftime('%Y년 %m월 %d일')
+    # today = (datetime.today() - timedelta(days=1)).strftime('%Y년 %m월 %d일') # For test
 
     urls = get_url_list(url)
     notice_list = get_notice_list(urls)
@@ -59,14 +61,21 @@ def run(url, notice_type):
                 notices = "{}\n{}".format(notices, v)
             else:
                 notices = "{}\n{}\n".format(notices, v)
-
-    result = ":bulb: {} {}공지입니다.\n{}".format(today, notice_type, notices)
+    
+    if notices == "":
+        result = "{} {}공지는 없습니다.\n".format(today, notice_type)
+    else:
+        result = ":bulb: {} {}공지입니다.\n{}".format(today, notice_type, notices)
 
     return result
 
 if __name__ == "__main__":
     # test
-    url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
-    notice_type = "일반"
+    # url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
+    # url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3638&id=kr_010801000000' # 학사공지
+    url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3662&id=kr_010804000000' # 장학공지
+    # notice_type = "일반"
+    # notice_type = "학사"
+    notice_type = "장학"
     
     print(run(url, notice_type))
