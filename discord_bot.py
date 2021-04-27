@@ -64,6 +64,8 @@ async def react_test(ctx):
     await ch_scholarship.send(scholarship_message)
     
     print(client.user.name, 'successfully sent notices to test channel.')
+    await client.close()
+    print(client.user.name, 'successfully logged out.')
 
     return None
 

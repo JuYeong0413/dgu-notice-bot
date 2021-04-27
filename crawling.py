@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from pytz import timezone
 import re
+import html5lib
 
 
 def get_url_list(url):
@@ -39,7 +40,7 @@ def get_notice_list(urls):
     notice_list = []
     for url in urls:
         html = requests.get(url)
-        soup = BeautifulSoup(html.text, 'html.parser')
+        soup = BeautifulSoup(html.text, 'html5lib')
         table = soup.find(id="board_view")
         title_text = table.select_one('th').text.strip()
         title = re.sub(r'\s+', ' ', title_text)
@@ -63,7 +64,7 @@ def run(url, notice_type):
                 notices = "{}\n{}\n".format(notices, v)
     
     if notices == "":
-        result = "{} {}공지는 없습니다.\n".format(today, notice_type)
+        result = ":bulb: {} {}공지는 없습니다.\n".format(today, notice_type)
     else:
         result = ":bulb: {} {}공지입니다.\n{}".format(today, notice_type, notices)
 
