@@ -14,6 +14,7 @@
 * beautifulsoup4
 * requests
 * [discord.py](https://github.com/Rapptz/discord.py)
+* [html5lib](https://github.com/html5lib/html5lib-python)
 * GitHub Action
 
 ## Running the server locally
