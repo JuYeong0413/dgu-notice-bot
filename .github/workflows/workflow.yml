@@ -2,11 +2,11 @@ name: run-discord-bot
 
 on:
   # test
-  # push:
-  #  branches:
-  #   - main
+  push:
+   branches:
+    - main
   schedule:
-    - cron: '57 7 * * 1-5' # weekdays 18:00
+    - cron: '0 9 * * 1-5' # weekdays 18:00
 
 jobs:
   build:
