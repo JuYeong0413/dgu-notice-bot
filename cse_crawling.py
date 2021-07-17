@@ -7,31 +7,26 @@ import html5lib
 
 
 def get_url_list(url):
-    html = requests.get(url)
+    session = requests.Session()
+    session.verify = False
+
+    html = session.post(url)
     soup = BeautifulSoup(html.text, 'html.parser')
-    table = soup.find(id="board_list")
+    table = soup.find('table')
     rows = table.find_all('tr')[1:]
 
-    # 상단 고정 공지 제외
-    today = datetime.now(timezone('Asia/Seoul')).strftime('%Y-%m-%d')
-    # today = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d') # For test
+    today = datetime.now(timezone('Asia/Seoul')).strftime('%Y.%m.%d')
+    # today = (datetime.today() - timedelta(days=1)).strftime('%Y.%m.%d') # For test
 
-    start = 0
-    end = 0
+    today_notice = []
     for i in rows:
-        if i.td.img is None:
-            if today == i.select('td')[3].text.strip():
-                end += 1
-        else:
-            start += 1
-
-    end += start
-    today_notice = rows[start:end]
-
+        if today == i.select('td')[3].text.strip():
+            today_notice.append(i)
+                
     # 오늘 올라온 공지 url
     today_notice_url = []
     for i in today_notice:
-        today_notice_url.append('http://www.dongguk.edu/mbs/kr/jsp/board/' + i.a['href'].strip())
+        today_notice_url.append('https://cse.dongguk.edu' + i.a['href'].strip())
 
     return today_notice_url
 
@@ -39,10 +34,12 @@ def get_url_list(url):
 def get_notice_list(urls):
     notice_list = []
     for url in urls:
-        html = requests.get(url)
+        session = requests.Session()
+        session.verify = False
+
+        html = session.post(url)
         soup = BeautifulSoup(html.text, 'html5lib')
-        table = soup.find(id="board_view")
-        title_text = table.select_one('th').text.strip()
+        title_text = soup.select_one('.kboard-title > p').text.strip()
         title = re.sub(r'\s+', ' ', title_text)
         notice_list.append({'title': title, 'url': url})
     return notice_list
@@ -72,13 +69,7 @@ def run(url, notice_type):
 
 
 if __name__ == "__main__":
-    # test
-    # url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
-    # url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3638&id=kr_010801000000' # 학사공지
-    url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3662&id=kr_010804000000' # 장학공지
-
-    # notice_type = "일반"
-    # notice_type = "학사"
-    notice_type = "장학"
+    url = 'https://cse.dongguk.edu/?page_id=799' # 컴퓨터공학과
+    notice_type = "컴퓨터공학과 "
     
     print(run(url, notice_type))

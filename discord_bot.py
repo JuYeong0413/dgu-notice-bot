@@ -5,17 +5,20 @@ import os
 # External File
 import load_secrets as secrets
 import crawling
+import cse_crawling
 
 
 # notice links
 general_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
 academic_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3638&id=kr_010801000000' # 학사공지
 scholarship_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3662&id=kr_010804000000' # 장학공지
+cse_url = 'https://cse.dongguk.edu/?page_id=799' # 컴퓨터공학과
 
 # notice types
 type_general = "일반"
 type_academic = "학사"
 type_scholarship = "장학"
+type_cse = "컴퓨터공학과 "
 
 # Get discord token
 token = os.environ.get('discord_token')
@@ -34,6 +37,7 @@ async def on_ready():
     general_message = crawling.run(general_url, type_general)
     academic_message = crawling.run(academic_url, type_academic)
     scholarship_message = crawling.run(scholarship_url, type_scholarship)
+    cse_message = cse_crawling.run(cse_url, type_cse)
 
     # Send message to channel
     ch_general = client.get_channel(797475056271622239)
@@ -42,6 +46,8 @@ async def on_ready():
     await ch_academic.send(academic_message)
     ch_scholarship = client.get_channel(797476280836161546)
     await ch_scholarship.send(scholarship_message)
+    ch_cse = client.get_channel(865617763220717568)
+    await ch_cse.send(cse_message)
 
     print(client.user.name, 'successfully sent notices.')
     await client.close()
@@ -54,6 +60,7 @@ async def react_test(ctx):
     general_message = crawling.run(general_url, type_general)
     academic_message = crawling.run(academic_url, type_academic)
     scholarship_message = crawling.run(scholarship_url, type_scholarship)
+    cse_message = cse_crawling.run(cse_url, type_cse)
 
     # Send message to channel
     ch_general = client.get_channel(835518591830851584)
@@ -62,6 +69,8 @@ async def react_test(ctx):
     await ch_academic.send(academic_message)
     ch_scholarship = client.get_channel(835518591830851584)
     await ch_scholarship.send(scholarship_message)
+    ch_cse = client.get_channel(835518591830851584)
+    await ch_cse.send(cse_message)
     
     print(client.user.name, 'successfully sent notices to test channel.')
     await client.close()
@@ -83,5 +92,5 @@ async def on_command_error(ctx, error):
 
     return None
 
-# client.run(secrets.get_token())
+# client.run(secrets.get_token()) # For local test
 client.run(token)
