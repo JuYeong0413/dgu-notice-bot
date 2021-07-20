@@ -41,17 +41,13 @@ async def on_ready():
 
     # Send message to channel
     ch_general = client.get_channel(797475056271622239)
-    for i in range(len(general_message)):
-        await ch_general.send(general_message[i])
+    await ch_general.send(general_message)
     ch_academic = client.get_channel(797476259777085440)
-    for i in range(len(academic_message)):
-        await ch_academic.send(academic_message[i])
+    await ch_academic.send(academic_message)
     ch_scholarship = client.get_channel(797476280836161546)
-    for i in range(len(scholarship_message)):
-        await ch_scholarship.send(scholarship_message[i])
+    await ch_scholarship.send(scholarship_message)
     ch_cse = client.get_channel(865617763220717568)
-    for i in range(len(cse_message)):
-        await ch_cse.send(cse_message[i])
+    await ch_cse.send(cse_message)
 
     print(client.user.name, 'successfully sent notices.')
     await client.close()
@@ -66,20 +62,21 @@ async def react_test(ctx):
     scholarship_message = crawling.run(scholarship_url, type_scholarship)
     cse_message = cse_crawling.run(cse_url, type_cse)
 
-    # Send message to test channel
-    test_channel = client.get_channel(835518591830851584)
-    for i in range(len(general_message)):
-        await test_channel.send(general_message[i])
-    for i in range(len(academic_message)):
-        await test_channel.send(academic_message[i])
-    for i in range(len(scholarship_message)):
-        await test_channel.send(scholarship_message[i])
-    for i in range(len(cse_message)):
-        await test_channel.send(cse_message[i])
+    # Send message to channel
+    ch_general = client.get_channel(835518591830851584)
+    await ch_general.send(general_message)
+    ch_academic = client.get_channel(835518591830851584)
+    await ch_academic.send(academic_message)
+    ch_scholarship = client.get_channel(835518591830851584)
+    await ch_scholarship.send(scholarship_message)
+    ch_cse = client.get_channel(835518591830851584)
+    await ch_cse.send(cse_message)
     
     print(client.user.name, 'successfully sent notices to test channel.')
     await client.close()
     print(client.user.name, 'successfully logged out.')
+
+    return None
 
 
 @client.event
@@ -93,6 +90,7 @@ async def on_command_error(ctx, error):
     await client.close()
     print(client.user.name, 'successfully logged out.')
 
+    return None
 
 # client.run(secrets.get_token()) # For local test
 client.run(token)
