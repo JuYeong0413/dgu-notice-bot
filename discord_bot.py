@@ -37,7 +37,6 @@ async def on_ready():
     general_message = crawling.run(general_url, type_general)
     academic_message = crawling.run(academic_url, type_academic)
     scholarship_message = crawling.run(scholarship_url, type_scholarship)
-    cse_message = cse_crawling.run(cse_url, type_cse)
 
     # Send message to channel
     ch_general = client.get_channel(797475056271622239)
@@ -49,11 +48,23 @@ async def on_ready():
     ch_scholarship = client.get_channel(797476280836161546)
     for i in range(len(scholarship_message)):
         await ch_scholarship.send(scholarship_message[i])
+
+    print(client.user.name, 'successfully sent notices.')
+    await client.close()
+    print(client.user.name, 'successfully logged out.')
+
+
+@client.command(name="cse")
+async def cse_notice(ctx):
+    # Get notice
+    cse_message = cse_crawling.run(cse_url, type_cse)
+
+    # Send message to channel
     ch_cse = client.get_channel(865617763220717568)
     for i in range(len(cse_message)):
         await ch_cse.send(cse_message[i])
-
-    print(client.user.name, 'successfully sent notices.')
+    
+    print(client.user.name, 'successfully sent cse notices.')
     await client.close()
     print(client.user.name, 'successfully logged out.')
 
