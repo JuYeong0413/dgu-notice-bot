@@ -75,7 +75,6 @@ async def react_test(ctx):
     general_message = crawling.run(general_url, type_general)
     academic_message = crawling.run(academic_url, type_academic)
     scholarship_message = crawling.run(scholarship_url, type_scholarship)
-    cse_message = cse_crawling.run(cse_url, type_cse)
 
     # Send message to test channel
     test_channel = client.get_channel(835518591830851584)
@@ -85,8 +84,6 @@ async def react_test(ctx):
         await test_channel.send(academic_message[i])
     for i in range(len(scholarship_message)):
         await test_channel.send(scholarship_message[i])
-    for i in range(len(cse_message)):
-        await test_channel.send(cse_message[i])
     
     print(client.user.name, 'successfully sent notices to test channel.')
     await client.close()
