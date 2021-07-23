@@ -52,19 +52,37 @@ def run(url, notice_type):
     urls = get_url_list(url)
     notice_list = get_notice_list(urls)
 
-    notices = ""
+    str = ""
+    result = []
     for notice_dict in notice_list:
         for k,v in notice_dict.items():
-            if k == 'title':
-                notices = "{}\n{}".format(notices, v)
-            else:
-                notices = "{}\n{}\n".format(notices, v)
-    
-    if notices == "":
-        result = ":bulb: {} {}공지는 없습니다.\n".format(today, notice_type)
-    else:
-        result = ":bulb: {} {}공지입니다.\n{}".format(today, notice_type, notices)
+            if (len(str) > 1600):
+                result.append(str)
+                str = ""
 
+            str = "{}\n{}".format(str, v)
+
+            if k == 'url':
+                str += "\n"
+
+    if (str != ""):
+        result.append(str)
+
+    # Split long messages
+    length = len(result)
+    if (length > 0):
+        for i in range(length):
+            str = result[i]
+            
+            if i == 0:
+                result[i] = ":bulb: {} {}공지입니다.\n{}".format(today, notice_type, str)
+            else:
+                result[i] = "_ _{}".format(str)
+
+    else:
+        str = ":bulb: {} {}공지는 없습니다.\n".format(today, notice_type)
+        result.append(str)
+        
     return result
 
 
