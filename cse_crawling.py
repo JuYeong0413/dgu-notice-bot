@@ -12,8 +12,11 @@ def get_url_list(url):
 
     html = session.post(url)
     soup = BeautifulSoup(html.text, 'html.parser')
-    table = soup.find('table')
-    rows = table.find_all('tr')[1:]
+    try:
+        table = soup.find('table')
+        rows = table.find_all('tr')[1:]
+    except Exception as e:
+        print(e)
 
     today = datetime.now(timezone('Asia/Seoul')).strftime('%Y.%m.%d')
     # today = (datetime.today() - timedelta(days=1)).strftime('%Y.%m.%d') # For test
