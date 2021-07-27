@@ -12,13 +12,11 @@ import cse_crawling
 general_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3646&id=kr_010802000000' # 일반공지
 academic_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3638&id=kr_010801000000' # 학사공지
 scholarship_url = 'https://www.dongguk.edu/mbs/kr/jsp/board/list.jsp?boardId=3662&id=kr_010804000000' # 장학공지
-cse_url = 'https://cse.dongguk.edu/?page_id=799' # 컴퓨터공학과
 
 # notice types
 type_general = "일반"
 type_academic = "학사"
 type_scholarship = "장학"
-type_cse = "컴퓨터공학과 "
 
 # Get discord token
 token = os.environ.get('discord_token')
@@ -50,30 +48,6 @@ async def on_ready():
         await ch_scholarship.send(scholarship_message[i])
 
     print(client.user.name, 'successfully sent notices.')
-
-    # CSE notice
-    cse_message = cse_crawling.run(cse_url, type_cse)
-
-    ch_cse = client.get_channel(865617763220717568)
-    for i in range(len(cse_message)):
-        await ch_cse.send(cse_message[i])
-
-    print(client.user.name, 'successfully sent cse notices.')
-    await client.close()
-    print(client.user.name, 'successfully logged out.')
-
-
-@client.command(name="cse")
-async def cse_notice(ctx):
-    # Get notice
-    cse_message = cse_crawling.run(cse_url, type_cse)
-
-    # Send message to channel
-    ch_cse = client.get_channel(865617763220717568)
-    for i in range(len(cse_message)):
-        await ch_cse.send(cse_message[i])
-    
-    print(client.user.name, 'successfully sent cse notices.')
     await client.close()
     print(client.user.name, 'successfully logged out.')
 
