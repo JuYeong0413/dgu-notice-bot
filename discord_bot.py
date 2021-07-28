@@ -53,12 +53,14 @@ async def on_ready():
 
     # CSE notice
     cse_message = cse_crawling.run(cse_url, type_cse)
-
-    ch_cse = client.get_channel(865617763220717568)
     for i in range(len(cse_message)):
-        await ch_cse.send(cse_message[i])
+        print(cse_message[i])
 
-    print(client.user.name, 'successfully sent cse notices.')
+    # ch_cse = client.get_channel(865617763220717568)
+    # for i in range(len(cse_message)):
+    #     await ch_cse.send(cse_message[i])
+
+    # print(client.user.name, 'successfully sent cse notices.')
     await client.close()
     print(client.user.name, 'successfully logged out.')
 
