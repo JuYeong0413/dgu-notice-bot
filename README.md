@@ -1,8 +1,10 @@
 # dgu-notice-bot
 [![run-discord-bot](https://github.com/JuYeong0413/dgu-notice-bot/actions/workflows/workflow.yml/badge.svg?branch=main)](https://github.com/JuYeong0413/dgu-notice-bot/actions/workflows/workflow.yml)  
   
-:elephant: 동국대학교 일반/학사/장학공지 디스코드 봇 ([채널 입장하기](https://discord.gg/XUhKUdA7Yx))  
-  
+:elephant: [채널 입장하기](https://discord.gg/XUhKUdA7Yx)
+
+![dgu-notice-bot-image](https://user-images.githubusercontent.com/33684401/132101726-fe1e5d7d-f388-43e2-91a9-d2b727468959.jpg)
+
 동국대학교 제53대 경영대학 학생회 [동경]에서 코로나19 사태로 인해 학교에 대한 정보를 얻기가 쉽지 않은 상황을 고려해
 학사/장학 관련 정보 전달에 적극적으로 임하고자 개설한 [카카오톡 오픈채팅방](https://www.facebook.com/938846786196643/posts/3602506079830687/?d=n)
 으로부터 아이디어를 얻어 제작한 디스코드 봇.
